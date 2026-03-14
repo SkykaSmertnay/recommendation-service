@@ -8,14 +8,23 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import org.skypro.recommendationservice.entity.DynamicRuleEntity;
+import org.skypro.recommendationservice.repository.DynamicRuleRepository;
+import org.skypro.recommendationservice.rule.DynamicRuleEvaluator;
 
 @Service
 public class RecommendationService {
 
     private final List<RecommendationRuleSet> ruleSets;
+    private final DynamicRuleRepository dynamicRuleRepository;
+    private final DynamicRuleEvaluator dynamicRuleEvaluator;
 
-    public RecommendationService(List<RecommendationRuleSet> ruleSets) {
+    public RecommendationService(List<RecommendationRuleSet> ruleSets,
+                                 DynamicRuleRepository dynamicRuleRepository,
+                                 DynamicRuleEvaluator dynamicRuleEvaluator) {
         this.ruleSets = ruleSets;
+        this.dynamicRuleRepository = dynamicRuleRepository;
+        this.dynamicRuleEvaluator = dynamicRuleEvaluator;
     }
 
     public RecommendationResponse getRecommendations(UUID userId) {
@@ -23,7 +32,21 @@ public class RecommendationService {
                 .map(ruleSet -> ruleSet.check(userId))
                 .filter(Optional::isPresent)
                 .map(Optional::get)
-                .toList();
+                .collect(java.util.stream.Collectors.toList());
+
+        List<DynamicRuleEntity> dynamicRules = dynamicRuleRepository.findAll();
+
+        for (DynamicRuleEntity dynamicRule : dynamicRules) {
+            if (dynamicRuleEvaluator.isSatisfied(dynamicRule, userId)) {
+                recommendations.add(
+                        new RecommendationDto(
+                                dynamicRule.getProductId(),
+                                dynamicRule.getProductName(),
+                                dynamicRule.getProductText()
+                        )
+                );
+            }
+        }
 
         return new RecommendationResponse(userId, recommendations);
     }
