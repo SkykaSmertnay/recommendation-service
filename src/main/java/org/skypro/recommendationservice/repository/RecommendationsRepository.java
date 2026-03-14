@@ -122,4 +122,9 @@ public class RecommendationsRepository {
             default -> throw new IllegalArgumentException("Unknown operator: " + operator);
         };
     }
+    public void clearCaches() {
+        productTypeCache.invalidateAll();
+        transactionSumCache.invalidateAll();
+        transactionCountCache.invalidateAll();
+    }
 }
