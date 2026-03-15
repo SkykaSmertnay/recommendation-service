@@ -52,18 +52,6 @@ Recommendation Service — это Spring Boot приложение для выд
 java -jar target/recommendation-service-0.0.1-SNAPSHOT.jar
 ```
 
-## Сборка и запуск
-
-Собрать проект:
-```bash
-.\mvnw.cmd package
-```
-
-Запустить приложение:
-```bash
-java -jar target/recommendation-service-0.0.1-SNAPSHOT.jar
-```
-
 ## Документация
 
 Проектная документация размещается в wiki репозитория и включает:
