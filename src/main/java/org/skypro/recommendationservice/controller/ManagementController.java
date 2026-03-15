@@ -26,6 +26,7 @@ public class ManagementController {
         recommendationsRepository.clearCaches();
         return ResponseEntity.ok().build();
     }
+
     @GetMapping("/management/info")
     public ServiceInfoResponse getInfo() {
         return new ServiceInfoResponse(

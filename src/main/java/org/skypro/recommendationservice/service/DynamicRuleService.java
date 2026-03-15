@@ -15,6 +15,7 @@ import org.skypro.recommendationservice.repository.RuleStatsRepository;
 import org.skypro.recommendationservice.dto.RuleStatDto;
 import org.skypro.recommendationservice.dto.RuleStatsResponse;
 import org.skypro.recommendationservice.entity.RuleStatsEntity;
+
 import java.util.stream.Collectors;
 
 @Service

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+
 import org.skypro.recommendationservice.entity.DynamicRuleEntity;
 import org.skypro.recommendationservice.repository.DynamicRuleRepository;
 import org.skypro.recommendationservice.rule.DynamicRuleEvaluator;
@@ -31,6 +32,7 @@ public class RecommendationService {
         this.dynamicRuleEvaluator = dynamicRuleEvaluator;
         this.ruleStatsRepository = ruleStatsRepository;
     }
+
     @Transactional
     public RecommendationResponse getRecommendations(UUID userId) {
         List<RecommendationDto> recommendations = ruleSets.stream()
