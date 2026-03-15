@@ -72,6 +72,12 @@
 			<version>3.1.8</version>
 		</dependency>
 
+		<dependency>
+			<groupId>com.github.pengrad</groupId>
+			<artifactId>java-telegram-bot-api</artifactId>
+			<version>9.5.0</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -79,6 +85,13 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>build-info</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>

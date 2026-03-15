@@ -6,6 +6,7 @@ import org.skypro.recommendationservice.dto.DynamicRuleResponse;
 import org.skypro.recommendationservice.service.DynamicRuleService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.skypro.recommendationservice.dto.RuleStatsResponse;
 
 @RestController
 public class RuleController {
@@ -30,5 +31,10 @@ public class RuleController {
     public ResponseEntity<Void> deleteRule(@PathVariable Long id) {
         dynamicRuleService.deleteRule(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/rule/stats")
+    public RuleStatsResponse getRuleStats() {
+        return dynamicRuleService.getRuleStats();
     }
 }

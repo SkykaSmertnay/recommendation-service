@@ -8,6 +8,7 @@ import java.util.UUID;
 
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
+
 import java.util.concurrent.TimeUnit;
 
 @Repository
@@ -44,6 +45,7 @@ public class RecommendationsRepository {
         );
         return result != null ? result : 0;
     }
+
     public boolean existsProductType(UUID userId, String productType) {
         String key = userId + ":" + productType;
 
@@ -121,5 +123,11 @@ public class RecommendationsRepository {
             case "<=" -> depositSum <= withdrawSum;
             default -> throw new IllegalArgumentException("Unknown operator: " + operator);
         };
+    }
+
+    public void clearCaches() {
+        productTypeCache.invalidateAll();
+        transactionSumCache.invalidateAll();
+        transactionCountCache.invalidateAll();
     }
 }
